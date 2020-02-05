@@ -16,7 +16,9 @@ function AddElem() {
     // LI & TXT ----------------------------------
     let newLi = document.createElement("li")
     ul.appendChild(newLi)[0]
-    newLi.innerText = input.value
+    let p = document.createElement('span')
+    newLi.appendChild(p)
+    p.innerText = input.value
     console.log(newLi.textContent);
     
     // reset l'input
@@ -45,8 +47,8 @@ function AddElem() {
     divbtn.append(btnDone, btnRename, btnRemove)
     newLi.appendChild(divbtn)
 
-    // fonctionalités boutons
-      // btnDone
+    // fonctionalités boutons------------------------------
+      // btnDone -------------------------------------------
     btnDone.addEventListener("click", () =>{
       if (newLi.style.backgroundColor == "lightgrey") {
         newLi.style.backgroundColor = "green"
@@ -57,29 +59,39 @@ function AddElem() {
       }
     }) 
 
-      // btnRename
+      // RENAME ------------------------------------------
     btnRename.addEventListener("click", () =>{
         // Création input & mise en place
-      let newInput = document.createElement("input")
-      // Faire disparaitre l'ancien input
+      var newInput = document.createElement("input")
+
+        // Faire disparaitre l'ancien input
       newInput.value = newLi.innerText
-      newLi.innerText = ""
-        //Affichage
-      newLi.append(newInput, btnRename)
-
-
+      p.style.display = "none"
+      
+        // Création nouveau bouton
+        var save = document.createElement('i')
+        save.setAttribute("class", "fas fa-file-signature p-x text-warning")
+      
+      //Affichage
+      divbtn.style.display ="none"
+      newLi.append(newInput, save)
+      
+      // Deuxième clic save
+      save.addEventListener("click", () =>{
+        p.innerText = newInput.value
+        p.style.display = "inline-block"
+        divbtn.style.display = ""
+        newLi.removeChild(save)
+        newLi.removeChild(newInput)
+      })
     })
 
-      // btnRemove
+      // btnRemove ------------------------------------------
     btnRemove.addEventListener("click", () =>{
       newLi.remove()
     }) 
 
-
-
-
-
-    /////// ELSE FONCTION ADDELEM ----------------
+    /////// ELSE FONCTION PRINCIPALE ----------------
   } else {
     // ajouter le message d'erreur
     msgErreur.classList.remove("display-none")
