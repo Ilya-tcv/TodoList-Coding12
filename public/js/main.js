@@ -1,25 +1,26 @@
 /////////////////////// LA TODO LIST ---------------------------
-  // Les variables
+// Les variables
 let input = document.getElementById("input-task")
 let ul = document.getElementById("list all")
 let body = document.querySelector("body")
 let msgErreur = document.getElementsByClassName("error")[0]
 let i = 0
 
+// JOLI input
+input.placeholder = "Titre de votre memo"
 // Bouton ajouter un li
 let ajouter = document.getElementById("add-task")
-  //Anti-refresh form
-  ajouter.setAttribute("type", "button")
+//Anti-refresh form
+ajouter.setAttribute("type", "button")
 
 function AddElem() {
   if (input.value != "") {
     // LI & TXT ----------------------------------
-    let newLi = document.createElement("li")
+    var newLi = document.createElement("li")
     ul.appendChild(newLi)[0]
     let p = document.createElement('span')
     newLi.appendChild(p)
     p.innerText = input.value
-    console.log(newLi.textContent);
     
     // reset l'input
     input.value = ""
@@ -86,33 +87,54 @@ function AddElem() {
       })
     })
 
-      // btnRemove ------------------------------------------
+      // REMOVE ------------------------------------------
     btnRemove.addEventListener("click", () =>{
       newLi.remove()
     }) 
-
+    
+  
     /////// ELSE FONCTION PRINCIPALE ----------------
   } else {
     // ajouter le message d'erreur
     msgErreur.classList.remove("display-none")
   }
-}
 
-ajouter.addEventListener("click", () => {
-  AddElem()
+  // LES FILTRES
+    // variables
+      let filtres = document.getElementById('filtre')
+      let todo = document.getElementsByTagName('button')[1]
+      let done = document.getElementsByTagName('button')[2]
+      let all = document.getElementsByTagName('button')[3]
+  
+      // BOUTON A FAIRE
+  todo.addEventListener("click", () =>{
+  if (newLi.style.backgroundColor == "green") {
+    newLi.style.display = "none"
+  } else {
+    newLi.style.display = ""
+  }
 })
 
-// input.addEventListener("keyup",() => {
-//   if (event.keyCode === 13) {
-//     AddElem()
-// }
-// })
+    // BOUTON FAIT
+  done.addEventListener("click", () =>{
+    if (newLi.style.backgroundColor != "green") {
+      newLi.style.display = "none"
+    } else {
+      newLi.style.display = ""
+    }
+  })
 
-// tests
-input.placeholder = "Ceci est l'input"
+     // BOUTON ALL
+  all.addEventListener("click", () =>{
+    
+    newLi.style.display = ""
+  })
+}
 
-
-
+      // BOUTON AJOUT LI ------------------------------------------
+    ajouter.addEventListener("click", () => {
+      AddElem()
+    })
 
 ////////////////// CODE DE BASE -----------------------------
 // var form = document.getElementsByTagName('form');
@@ -201,6 +223,3 @@ input.placeholder = "Ceci est l'input"
   // event.preventDefault();
   // addTask()
 // });
-
-
-
